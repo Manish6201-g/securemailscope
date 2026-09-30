@@ -1,0 +1,39 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.oxlintrc.json
+.npm
+
+# Data & Uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/data/*.pcap
+
+# Environment & OS
+.env
+.DS_Store
+*.log

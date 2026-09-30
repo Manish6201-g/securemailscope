@@ -1,0 +1,25 @@
+[project]
+name = "securemailscope"
+version = "1.0.0"
+description = "AI-Assisted Cryptographic Security Posture Assessment for Secure Email Communications (SIH26159)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+    "pydantic>=2.0.0",
+    "python-multipart>=0.0.9",
+    "scikit-learn>=1.4.0",
+    "numpy>=1.26.0",
+    "scipy>=1.11.0",
+    "cryptography>=42.0.0",
+]
+
+[tool.vercel]
+entrypoint = "backend.main:app"
+
+[tool.vercel.scripts]
+build = "cd frontend && npm install && npm run build"
+
+[tool.vercel.fastapi.static]
+cdn = true

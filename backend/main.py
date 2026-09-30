@@ -26,11 +26,22 @@ MAX_UPLOAD_SIZE = int(os.getenv("MAX_UPLOAD_SIZE_MB", "50")) * 1024 * 1024
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 FRONTEND_DIST = os.path.join(PROJECT_ROOT, "frontend", "dist")
-UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
-DATA_DIR = os.path.join(BASE_DIR, "data")
+if os.getenv("VERCEL"):
+    UPLOAD_DIR = "/tmp/uploads"
+    DATA_DIR = "/tmp/data"
+else:
+    UPLOAD_DIR = os.getenv("UPLOAD_DIR", os.path.join(BASE_DIR, "uploads"))
+    DATA_DIR = os.getenv("DATA_DIR", os.path.join(BASE_DIR, "data"))
 
-os.makedirs(UPLOAD_DIR, exist_ok=True)
-os.makedirs(DATA_DIR, exist_ok=True)
+try:
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    os.makedirs(DATA_DIR, exist_ok=True)
+except OSError:
+    UPLOAD_DIR = "/tmp/uploads"
+    DATA_DIR = "/tmp/data"
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    os.makedirs(DATA_DIR, exist_ok=True)
+
 
 app = FastAPI(
     title="SecureMailScope API",

@@ -1,8 +1,17 @@
 import os
 import struct
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
-os.makedirs(DATA_DIR, exist_ok=True)
+if os.getenv("VERCEL"):
+    DATA_DIR = "/tmp/data"
+else:
+    DATA_DIR = os.getenv("DATA_DIR", os.path.join(os.path.dirname(os.path.dirname(__file__)), "data"))
+
+try:
+    os.makedirs(DATA_DIR, exist_ok=True)
+except OSError:
+    DATA_DIR = "/tmp/data"
+    os.makedirs(DATA_DIR, exist_ok=True)
+
 
 def write_pcap(filepath: str, packets: list):
     with open(filepath, "wb") as f:
